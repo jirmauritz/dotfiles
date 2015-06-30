@@ -22,3 +22,5 @@ filetype plugin indent on
 " gt    - posune se na dalsi zalozku
 " 4gt   - posune se na ctvrtou zalozku
 " :exit - zavre zalozku
+
+" zmenit pylint2 na pylint, protoze pouzivam python3
