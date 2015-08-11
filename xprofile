@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# turn off speaker beep
+xset b off &
+
+# keyboard settings
+setxkbmap -layout "cz(qwerty),us"
+setxkbmap -option -option grp:alt_shift_toggle
+
+# turn on sound controler
+start-pulseaudio-x11 &

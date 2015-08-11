@@ -45,6 +45,7 @@ set noswapfile
 set showcmd
 
 " Rebind <Leader> key
+" leader key - nastaveni klavesy na dodatecne custom mapovaci zkratky, protoze ve vimu uz je jich spousta vycerpana
 let mapleader=","
 
 " indenting automatically
@@ -75,8 +76,13 @@ set linebreak
 autocmd BufNewFile,BufRead * setlocal formatoptions=cqj
 " note: it is necessary to set it this way, otherwise it would be overwriten
 
-" copying and pasting
-set clipboard=unnamedplus  " use system clipboard for pasting
+" Copying and pasting
+" use system clipboard for pasting
+set clipboard=unnamedplus
+" other clipboards
+" usage: "[a-z]y for copy to one of the clipboards a - z
+"        "[a-z]p for paste
+
 
 " when a tab is closed, remove the buffer
 set nohidden
@@ -186,6 +192,8 @@ autocmd FileType python map <buffer> <f5> :w<cr>:!python %<cr>
 
 " AsciiDoc: save and convert to PDF
 autocmd FileType asciidoc map <buffer> <f5> :w<cr>:!a2pdf %<cr>
+" set asciidoc highlighing
+autocmd BufRead,BufNewFile *.ad set syntax=asciidoc
 
 "" LaTeX: call make (cc -> show the first error or No errors message)
 "autocmd FileType tex map <buffer> <f5> :w<cr>:silent make\|redraw!\|cw<cr>
@@ -194,10 +202,11 @@ autocmd FileType asciidoc map <buffer> <f5> :w<cr>:!a2pdf %<cr>
 "  Solarized + theme options
 " ==========================================================
 set background=dark
-colorscheme solarized
+colorscheme delek
 
 " highlight current line
 set cursorline
+hi CursorLine term=bold cterm=bold
 
 " toggle light and dark background with F4
 call togglebg#map("<F4>")
@@ -232,6 +241,11 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+" :tabe - otevrit v nove zalozce soubor
+" gt    - posune se na dalsi zalozku
+" 4gt   - posune se na ctvrtou zalozku
+" :exit - zavre zalozku
+
 
 " to avoid pause when leaving insert mode
 set ttimeoutlen=50
