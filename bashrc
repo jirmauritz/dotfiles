@@ -33,12 +33,12 @@ function prompt {
     local DATE="$(date +%y/%m/%d)"
     local USERNAME="\u"
     local HOSTNAME="\h"
-    local WORKING_DIRECTORY="\w"
+    local PWD=`pwd | awk 'BEGIN { FS = "/"} ; { print $(NF-1)"/"$NF}'`
 
     if [ $OK_OR_ERR = 0 ]; then
-        PS1=''$GREEN'[OK]'$BLUE'['$USERNAME'@'$HOSTNAME':'$RED'\W]'$NO_COLOR' '
+        PS1=''$GREEN'[OK]'$BLUE'['$HOSTNAME':'$RED$PWD']'$NO_COLOR' '
     else
-        PS1=''$RED'[ER]'$BLUE'['$USERNAME'@'$HOSTNAME':'$RED'\W]'$NO_COLOR' '
+        PS1=''$RED'['$OK_OR_ERR']'$BLUE'['$HOSTNAME':'$RED$PWD']'$NO_COLOR' '
     fi
 }
 
