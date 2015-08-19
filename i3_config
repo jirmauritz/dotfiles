@@ -8,7 +8,7 @@
 set $mod Mod4
 
 # Background
-exec --no-startup-id feh --bg-fill /usr/share/backgrounds/iceland.jpg
+exec --no-startup-id feh --bg-scale /usr/share/backgrounds/iceland.jpg
 
 # Font for window titles. Will also be used by the bar unless a different font. Source: /usr/share/fonts/TTF/
 font pango:Ubuntu-R 12

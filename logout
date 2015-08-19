@@ -1,0 +1,6 @@
+#! /bin/bash
+
+# Script run when logout of lightdm session
+
+ssh-add -D
+ssh-agent -k

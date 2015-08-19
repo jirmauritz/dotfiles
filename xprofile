@@ -9,3 +9,12 @@ setxkbmap -option -option grp:alt_shift_toggle
 
 # turn on sound controler
 start-pulseaudio-x11 &
+
+# locale
+LC_NUMERIC=en_US.utf8
+
+# start ssh agent if necessary
+if [ -z $SSH_AGENT_PID ] && [ -z $SSH_TTY ]; then  # if no agent & not in ssh
+    eval `ssh-agent -s` > /dev/null
+fi
+
