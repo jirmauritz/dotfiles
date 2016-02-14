@@ -8,7 +8,7 @@
 set $mod Mod4
 
 # Background
-exec --no-startup-id feh --bg-scale /usr/share/backgrounds/iceland.jpg
+exec --no-startup-id feh --bg-scale /usr/share/backgrounds/copenhagen.jpg
 
 # Font for window titles. Will also be used by the bar unless a different font. Source: /usr/share/fonts/TTF/
 font pango:Ubuntu-R 12
@@ -24,6 +24,9 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
+
+# start dmenu for ditionary
+bindsym $mod+q exec cat /home/xmauritz/programmes/scripts/dict/wordlist.txt | dmenu | xsel -i -b
 
 # change focus
 bindsym $mod+h focus left
@@ -77,8 +80,8 @@ bindsym $mod+b focus child
 
 # workspace names
 set $tag1 "1 main"
-set $tag2 "2 work"
-set $tag3 "3 arch"
+set $tag2 "2"
+set $tag3 "3"
 set $tag4 "4 spotify"
 set $tag5 "5 host"
 set $tag6 "6 movies"
@@ -114,6 +117,9 @@ bindsym $mod+Shift+0 move container to workspace $tag10
 #bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth
 
+# focus doesn't follow mouse
+focus_follows_mouse no
+
 # reload the configuration file
 #bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -147,26 +153,27 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# bar for external monitor (HDMI)
+
+#  bar for external monitor (HDMI)
 bar {
-    output VGA-0
-    output HDMI-0
-    position bottom
-    #status_command i3status
-    status_command i3status --config ~/dotfiles/i3_status.conf
-    colors {
-        background #2D261D
-        statusline #BBBBBB
-        separator  #E65C00
-    }
-}
+     output VGA-0
+     output HDMI-0
+     position bottom
+     status_command ~/.i3/i3_status_custom.sh
+    #status_command ~/programmes/scripts/conky-i3bar.sh
+     colors {
+         background #2D261D
+         statusline #BBBBBB
+         separator  #E65C00
+     }
+ }
 
 # bar for laptop monitor (eDP1)
 bar {
     output LVDS
     position bottom
-    #status_command i3status
-    status_command i3status --config ~/dotfiles/i3_status.conf
+    status_command ~/.i3/i3_status_custom.sh
+    #status_command ~/programmes/scripts/conky-i3bar.sh
     colors {
         background #2D261D
         statusline #CCCCCC
@@ -179,12 +186,14 @@ bar {
 # print screen
 
 # audio control
-bindsym XF86AudioRaiseVolume exec pulseaudio-ctl up
-bindsym XF86AudioLowerVolume exec pulseaudio-ctl down
-bindsym XF86AudioMute exec pulseaudio-ctl mute
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
+bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
+bindsym XF86Battery exec --no-startup-id /home/xmauritz/programmes/scripts/sound/microphone-mute.sh
+bindsym XF86Sleep exec --no-startup-id /home/xmauritz/programmes/scripts/sound/headset.sh
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # brightness control
 bindsym XF86MonBrightnessUp exec --no-startup-id /etc/scripts/brightness.sh +10
@@ -196,11 +205,11 @@ bindsym XF86MonBrightnessDown exec --no-startup-id /etc/scripts/brightness.sh -1
 set $SYSMENU "[l] Lock  |  [e] Logout  |  [r] Reboot  |  [u] Suspend  |  [h] Hibernate  |  [s] Shutdown"
 bindsym $mod+Shift+e mode $SYSMENU
 mode $SYSMENU {
-    bindsym l       exec --no-startup-id i3lock -d -c 000000, mode "default"
+    bindsym l       exec --no-startup-id i3lock -i /usr/share/backgrounds/mountain.png  -c 000000 -d -I 5, mode "default"
     bindsym e       exec --no-startup-id i3-msg exit
     bindsym r       exec --no-startup-id systemctl reboot
-    bindsym u       exec --no-startup-id i3lock && sleep 1 && systemctl suspend
-    bindsym h       exec --no-startup-id i3lock && sleep 1 && systemctl hibernate
+    bindsym u       exec --no-startup-id i3lock -i /usr/share/backgrounds/mountain.png -d -I 5-c 000000 && sleep 1 && systemctl suspend
+    bindsym h       exec --no-startup-id i3lock -i /usr/share/backgrounds/mountain.png -d -I 5-c 000000 && sleep 1 && systemctl hibernate
     bindsym s       exec --no-startup-id systemctl poweroff
     bindsym Return  mode "default"
     bindsym Escape  mode "default"

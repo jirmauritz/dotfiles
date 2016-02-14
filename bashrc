@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# PATH
+export PATH=$PATH:/home/xmauritz/.gem/ruby/2.3.0/bin
+
 # define prompt
 function prompt {
     local OK_OR_ERR=$?
@@ -44,7 +47,7 @@ function prompt {
 
 PROMPT_COMMAND=prompt
 
-PS1='[\u@\h \W]\$ '
+#PS1='[\u@\h \W]\$ '
 
 # python virtualenv initialization
 export WORKON_HOME=~/.virtualenvs
@@ -87,6 +90,18 @@ alias perundev="export PERUN_URL=https://perun-dev.meta.zcu.cz/krb/rpc/"
 # alias for secure.ods
 alias sec="gpg -d ~/.secure.ods.gpg > ~/.secure.ods && libreoffice ~/.secure.ods"
 alias savesec="gpg -c ~/.secure.ods && rm ~/.secure.ods"
+
+# alias for encoding
+alias subtit="iconv -f WINDOWS-1250 -t UTF8"
+
+# alias for MUNI VPN
+alias vpn="sudo openvpn --config /etc/openvpn/muni.ovpn"
+
+# alias for jekyll - github blog
+alias jekyll="bundle exec jekyll serve"
+
+# alias for git status
+alias gss="git status"
 
 # z script
 . ~/programmes/scripts/z.sh

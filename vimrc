@@ -20,6 +20,8 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'andviro/ropevim-bundled'
 
 call vundle#end()
 
@@ -67,8 +69,8 @@ set smarttab
 " but do not be to much intelligent in tex files
 autocmd FileType tex setlocal nosmarttab
 
-" soft (visual) wrapping
-set wrap
+" no wrapping, let the line crawl out of page
+set nowrap
 " wrap on whitespace and some other characters (!@*-+;:,./?)
 set linebreak
 " auto-wrap comments (c), allow formatting command gq (q),
@@ -110,7 +112,7 @@ set shortmess=aItT
 set history=100
 
 " trailing whitespace when saving
-autocmd BufWritePre * :%s/\s\+$//e
+" autocmd BufWritePre * :%s/\s\+$//e
 
 " Let cursor move past the last char in <C-v> mode
 set virtualedit=block
@@ -120,7 +122,7 @@ set number              " display line numbers
 set numberwidth=2       " using at least 2 columns (+ 1 space) for number column
 
 "" automatically reload _vimrc on save
-"autocmd! bufwritepost _vimrc source %
+autocmd! bufwritepost _vimrc source %
 
 " ==========================================================
 "  Source code settings
@@ -135,6 +137,10 @@ autocmd FileType python,java,javascript,haskell
     \ | setlocal textwidth=79
 
 " Note: comments can be aligned properly using 'gq' command.
+
+" Latex settings
+let Tex_AutoFolding = 0
+
 
 " ==========================================================
 "  Search
@@ -188,12 +194,12 @@ nmap <leader>i :set list!<CR>
 " ==========================================================
 
 " Python: save and execute
-autocmd FileType python map <buffer> <f5> :w<cr>:!python %<cr>
+autocmd FileType python map <buffer> <f5> <cr>:!python %<cr>
 
 " AsciiDoc: save and convert to PDF
 autocmd FileType asciidoc map <buffer> <f5> :w<cr>:!a2pdf %<cr>
 " set asciidoc highlighing
-autocmd BufRead,BufNewFile *.ad set syntax=asciidoc
+autocmd BufRead,BufNewFile *.ad set filetype=asciidoc
 
 "" LaTeX: call make (cc -> show the first error or No errors message)
 "autocmd FileType tex map <buffer> <f5> :w<cr>:silent make\|redraw!\|cw<cr>
@@ -207,6 +213,7 @@ colorscheme delek
 " highlight current line
 set cursorline
 hi CursorLine term=bold cterm=bold
+hi DiffText ctermbg=2
 
 " toggle light and dark background with F4
 call togglebg#map("<F4>")
